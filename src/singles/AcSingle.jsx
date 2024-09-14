@@ -1,7 +1,7 @@
 import React from 'react'
 import { acData } from '../stores/data/ac'
 import { useParams } from 'react-router-dom'
-import Navbar from '../stores/components/Navbar';
+
 import { useCart } from '../stores/context/CarContext';
 
 const AcSingle = () => {
@@ -16,7 +16,7 @@ const AcSingle = () => {
 
   return (
     <>
-    <Navbar/>
+    
     <div className="ind-page">
       <div className="ind-image">
         <img src={product.image}/>

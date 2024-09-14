@@ -1,38 +1,62 @@
 import React, { useState } from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
 import './Login.css';
 
 const Login = ({ setUser }) => {
-  const [action, setAction] = useState("Login");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [action, setAction] = useState("Login"); // a state variable to determine whether the user is performing a Login or Sign Up action. Initialized to Login
+  const [name, setName] = useState("");//to store name entered by user. Initialized to an empty string ""
+  const [email, setEmail] = useState("");//state for user's email
+  const [password, setPassword] = useState("");//state for user's password
 
+  const navigate = useNavigate();//hook to navigate between routes
+  const location = useLocation();//hook to access the current location
+
+  //extract the 'from' path from location state
+  //determine the previous path to redirect to after login
+  const from = location.state?.from || "/";//default to home if no 'from' path
+  const product = location.state?.product; //get product from state if it exit
   // Handle sign-up action
   const handleSignUp = () => {
+    //localStorage = allows u to store data locally in the browser
+    //JSON.parse = converts the JSON string stored in localStorage back into a JS object/array
+    //if there are no users, it initializes users as an empty array ( || [])
     const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    //checks if a user with the entered email already exists using the some array method
     const userExists = users.some(user => user.email === email);
 
     if (userExists) {
       alert("User already exists. Please log in.");
-      setAction("Login");
+      setAction("Login");//switch to login action
     } else {
+        //creates a new user object
       const newUser = { name, email, password };
-      users.push(newUser);
-      localStorage.setItem("users", JSON.stringify(users));
+      users.push(newUser); // adds the newUser to the users array
+      localStorage.setItem("users", JSON.stringify(users)); //saves the updated user list to localStorage 
       alert("Sign-up successful!");
-      setUser(newUser);
-      resetForm();
+      setUser(newUser);//update the user state in the parent component
+      localStorage.setItem('loggedInUser', JSON.stringify(newUser));//save user in localStorage
+      //resetForm(); //resets the form fields by calling resetForm()
+      navigate(from, {replace : true}); //redirect back to the previous page
     }
   };
 
   // Handle login action
   const handleLogin = () => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    //searches for a user with the matching email and password using the find method
     const user = users.find(user => user.email === email && user.password === password);
 
+    //if a matching user is found
     if (user) {
       alert(`Welcome back, ${user.name}!`);
-      setUser(user);
+      setUser(user);//update the user state
+      localStorage.setItem('loggedInUser', JSON.stringify(user));
+      const redirectPath = localStorage.getItem('redirectPath');
+      localStorage.removeItem('redirectPath');
+      navigate(redirectPath || from, { replace: true });
+      //navigate(from, {replace : true}); //redirect back to the previous page
       resetForm();
     } else {
       alert("Invalid credentials. Please try again.");

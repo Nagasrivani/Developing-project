@@ -1,9 +1,7 @@
 import React,{useState} from 'react'
 import { acData } from '../data/ac'
-import Navbar from '../components/Navbar'
+
 import { Link } from 'react-router-dom'
-
-
 
 const AcPage = () => {
     
@@ -30,7 +28,7 @@ const AcPage = () => {
 
   return (
     <>
-    <Navbar/>
+    
     
     <div className="fullpage">
       <div className="pro-selected">

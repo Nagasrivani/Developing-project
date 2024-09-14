@@ -1,7 +1,7 @@
 import React from 'react'
 import { computerData } from '../stores/data/computers'
 import { useParams } from 'react-router-dom'
-import Navbar from '../stores/components/Navbar';
+
 import { useCart } from '../stores/context/CarContext';
 
 const ComputerSingle = () => {
@@ -16,7 +16,7 @@ const ComputerSingle = () => {
 
   return (
     <>
-    <Navbar/>
+    
     <div className="ind-page">
       <div className="ind-image">
         <img src={product.image}/>

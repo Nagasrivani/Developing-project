@@ -1,7 +1,7 @@
 import React from 'react'
 import { tvData } from '../stores/data/tv'
 import { useParams } from 'react-router-dom'
-import Navbar from '../stores/components/Navbar';
+
 import { useCart } from '../stores/context/CarContext';
 
 const TvSingle = () => {
@@ -16,7 +16,7 @@ const TvSingle = () => {
 
   return (
     <>
-    <Navbar/>
+    
     <div className="ind-page">
       <div className="ind-image">
         <img src={product.image} alt={product.image}/>

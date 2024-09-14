@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import Navbar from './stores/components/Navbar'; // Import the Navbar
 import Login from './stores/pages/Login';
@@ -29,19 +29,29 @@ import SpeakerSingle from './singles/SpeakerSingle';
 import FridgeSingle from './singles/FridgeSingle';
 import TvSingle from './singles/TvSingle';
 import BookSingle from './singles/BookSingle';
+import CartProvider from './stores/context/CarContext';
 
 const App = () => {
-   //const [user, setUser] = useState(null); 
+  //state to manage the logged-in user, initially null
+   const [user, setUser] = useState(null); //using useState hook to create a new user, initially it is set to null, means no user is logged in
+   const navigate = useNavigate(); //Navigate hook for redirection
 
-  //const handleLogout = () => {
-    //setUser(null);
-  //}
+  const handleLogout = () => {
+    setUser(null);//clear user state
+    localStorage.removeItem('loggedInUser'); //optionally clear user from localStorage
+    navigate('/'); //redirect to home page after logout
+  }
   return (
-    <div>
-      {/*<Navbar user = {user} onLogout = {handleLogout}/>*/}
+    <CartProvider>
+      <div>
+      {/*we are passing 2 props to the Navbar component
+      user = current user state, it will be null if no user logged in, or a user object if someone is logged in
+      onLogout = pass handleLogout function that handles logout process, this fun is triggered when the log out button is clicked in the navbar*/}
+      <Navbar user = {user} onLogout = {handleLogout}/>
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
+        {/*pass the setUser func as a prop to the login comp. allows login comp to update the user state when a user logs in*/}
+        <Route path="/login" element={<Login setUser={setUser}/>} />
         <Route path='/mobiles' element={<MobilePage />} />
         <Route path='/computers' element={<ComputerPage />} />
         <Route path='/watches' element={<WatchesPage />} />
@@ -70,6 +80,7 @@ const App = () => {
         <Route path='/cart' element={<UserCart />} />
       </Routes>
     </div>
+    </CartProvider>
   );
 };
 

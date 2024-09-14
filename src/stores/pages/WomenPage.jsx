@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { womanData } from '../data/woman'
-import Navbar from '../components/Navbar'
+
 import { Link } from 'react-router-dom'
 
 
@@ -30,7 +30,7 @@ const WomenPage = () => {
 
   return (
     <>
-    <Navbar/>
+   
     
     <div className="fullpage">
       <div className="pro-selected">

@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { booksData } from '../data/books'
-import Navbar from '../components/Navbar'
+
 import { Link } from 'react-router-dom'
 
 
@@ -30,7 +30,7 @@ const BookPage = () => {
 
   return (
     <>
-    <Navbar/>
+   
     
     <div className="fullpage">
       <div className="pro-selected">

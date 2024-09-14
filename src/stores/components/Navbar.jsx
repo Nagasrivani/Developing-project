@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CarContext';
 
-const Navbar = () => {
+const Navbar = ({user,onLogout} ) => {
   const { cartItems } = useCart(); // Destructuring to get cart items
 
   return (
@@ -14,9 +14,16 @@ const Navbar = () => {
         <div className="search">
           <input type="text" placeholder="Search.." />
         </div>
-        <Link to='/login'>
-          <div className="user-detail">SignIn/SignUp</div>
-        </Link>
+        {user ? (
+          <>
+            <div className="user-detail" onClick={onLogout}>Log Out</div>
+          </>
+        ):(
+          <Link to='/login'>
+          <div className="user-detail">Log In</div>
+          </Link>
+        )}
+        
         <Link to='/cart'>
           <div className="cart">
             Cart <span>{cartItems.length}</span>

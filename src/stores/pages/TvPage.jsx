@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { tvData } from '../data/tv'
-import Navbar from '../components/Navbar'
+
 import { Link } from 'react-router-dom'
 
 
@@ -30,7 +30,7 @@ const TvPage = () => {
 
   return (
     <>
-    <Navbar/>
+    
     
     <div className="fullpage">
       <div className="pro-selected">

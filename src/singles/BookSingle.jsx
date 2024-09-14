@@ -1,7 +1,7 @@
 import React from 'react'
 import { booksData } from '../stores/data/books'
 import { useParams } from 'react-router-dom'
-import Navbar from '../stores/components/Navbar';
+
 import { useCart } from '../stores/context/CarContext';
 
 const BookSingle = () => {
@@ -16,7 +16,7 @@ const BookSingle = () => {
 
   return (
     <>
-    <Navbar/>
+    
     <div className="ind-page">
       <div className="ind-image">
         <img src={product.image} alt={product.image}/>
